@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base Colors - Deep Dark */
+    --background: 240 10% 4%;
+    /* #0a0a0f */
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 4%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 4%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Brand Colors - Neon Violet/Cyan */
+    --primary: 265 85% 55%;
+    /* #8b2fc9 */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 190 90% 50%;
+    /* #00d9f9 */
+    --secondary-foreground: 240 10% 4%;
+
+    --muted: 240 5% 15%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 265 85% 55%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 5% 20%;
+    --input: 240 5% 20%;
+    --ring: 265 85% 55%;
+
+    --radius: 1rem;
+  }
+
+  /* Force Dark Mode aesthetic even without .dark class if needed, or rely on system preference */
+  .dark {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased font-sans selection:bg-primary/30 selection:text-white;
+    font-family: 'Outfit', sans-serif;
+    /* subtle gradient background */
+    background: radial-gradient(circle at 50% 0%, #1a1a2e 0%, #0a0a0f 100%);
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl;
+  }
+
+  .glass-card {
+    @apply bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(139, 47, 201, 0.5);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 99px;
+}
