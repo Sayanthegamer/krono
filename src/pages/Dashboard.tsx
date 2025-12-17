@@ -1,9 +1,9 @@
 import React from 'react';
-import { useTimetable } from '../context/TimetableContext';
+
 import { useScheduleStatus } from '../hooks/useScheduleStatus';
 import { ClassCard } from '../components/ClassCard';
 import { TodoWidget } from '../components/TodoWidget';
-import type { TimeTableEntry, DayOfWeek } from '../types';
+import type { TimeTableEntry } from '../types';
 import { format } from 'date-fns';
 import { motion } from 'framer-motion';
 import { Clock, Sparkles } from 'lucide-react';
@@ -15,16 +15,8 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ onEntryClick }) => {
-    const { entries } = useTimetable();
     const { user } = useAuth();
     const { currentClass, nextClass, now } = useScheduleStatus();
-
-    // Get all today's entries
-    const days: DayOfWeek[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const currentDayName = days[now.getDay()];
-    const todayEntries = entries
-        .filter(e => e.days.includes(currentDayName))
-        .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
     // Dynamic Greeting
     const hour = now.getHours();
@@ -88,42 +80,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onEntryClick }) => {
                 <TodoWidget />
             </section>
 
-            {/* Timeline Widget */}
-            {todayEntries.length > 0 && (
-                <section>
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-semibold text-foreground">Timeline</h3>
-                        <span className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">{todayEntries.length} Classes</span>
-                    </div>
 
-                    <div className="space-y-4 pl-4 border-l border-border ml-2 relative">
-                        {todayEntries.map((entry, idx) => {
-                            let status: 'past' | 'future' | 'current' = 'future';
-                            if (currentClass?.id === entry.id) status = 'current';
-                            else if (entry.endTime <= format(now, 'HH:mm')) status = 'past';
-
-                            return (
-                                <motion.div
-                                    key={entry.id}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: idx * 0.1 }}
-                                    className="relative pl-6"
-                                >
-                                    {/* Timeline Dot */}
-                                    <div className={`absolute left-[-5px] top-6 w-2.5 h-2.5 rounded-full ${status === 'current' ? 'bg-primary ring-4 ring-primary/20' : 'bg-muted-foreground/30'}`} />
-
-                                    <ClassCard
-                                        entry={entry}
-                                        status={status}
-                                        onClick={() => onEntryClick(entry)}
-                                    />
-                                </motion.div>
-                            );
-                        })}
-                    </div>
-                </section>
-            )}
         </div>
     );
 };

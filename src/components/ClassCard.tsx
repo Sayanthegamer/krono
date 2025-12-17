@@ -1,6 +1,6 @@
 import React from 'react';
 import type { TimeTableEntry } from '../types';
-import { MapPin, Clock } from 'lucide-react';
+import { MapPin, Clock, Pencil } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { twMerge } from 'tailwind-merge';
 
@@ -22,7 +22,7 @@ export const ClassCard: React.FC<ClassCardProps> = ({ entry, status, onClick }) 
             onClick={onClick}
             className={twMerge(
                 "relative overflow-hidden rounded-2xl p-5 border backdrop-blur-md transition-all duration-300",
-                "glass-card hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer",
+                "glass-card hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer group",
                 borderColor,
                 glow
             )}
@@ -58,6 +58,11 @@ export const ClassCard: React.FC<ClassCardProps> = ({ entry, status, onClick }) 
                         Now
                     </div>
                 )}
+
+                {/* Edit Indicator */}
+                <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity bg-black/20 p-1.5 rounded-full">
+                    <Pencil size={14} className="text-muted-foreground" />
+                </div>
             </div>
         </motion.div>
     );

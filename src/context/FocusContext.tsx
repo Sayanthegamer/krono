@@ -95,7 +95,7 @@ export const FocusProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         let interval: any;
         if (isActive && timeLeft > 0) {
             interval = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
-        } else if (timeLeft === 0) {
+        } else if (timeLeft === 0 && isActive) {
             setIsActive(false);
 
             // Play Beep

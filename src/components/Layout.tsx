@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, Plus, Timer, LayoutGrid, PieChart, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
+import { SettingsModal } from './SettingsModal';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -12,6 +13,8 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange, onAddClick }) => {
     const { user, logout } = useAuth();
+
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     return (
         <div className="min-h-screen bg-background text-foreground flex flex-col relative overflow-hidden">
@@ -44,13 +47,19 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange
                     <h1 className="text-xl font-bold tracking-tight">Timetable</h1>
                 </div>
                 {user && (
-                    <div className="flex items-center gap-3 bg-muted/50 p-1.5 pr-4 rounded-full border border-white/5">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs shadow-inner">
-                            {user.displayName ? user.displayName[0].toUpperCase() : user.email?.[0].toUpperCase()}
-                        </div>
-                        <div className="flex flex-col items-start hidden sm:flex">
-                            <span className="text-xs font-semibold leading-none">{user.displayName || 'User'}</span>
-                            <span className="text-[10px] text-muted-foreground leading-none">{user.email}</span>
+                    <div className="flex items-center gap-3 bg-muted/50 p-1.5 pr-1.5 rounded-full border border-white/5">
+                        {/* User Profile Trigger for Settings */}
+                        <div
+                            onClick={() => setIsSettingsOpen(true)}
+                            className="flex items-center gap-3 cursor-pointer hover:bg-white/5 rounded-full pl-2 pr-2 py-1 transition-colors"
+                        >
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs shadow-inner">
+                                {user.displayName ? user.displayName[0].toUpperCase() : user.email?.[0].toUpperCase()}
+                            </div>
+                            <div className="flex flex-col items-start hidden sm:flex">
+                                <span className="text-xs font-semibold leading-none">{user.displayName || 'User'}</span>
+                                <span className="text-xs text-muted-foreground leading-none scale-90 origin-left mt-0.5">Settings</span>
+                            </div>
                         </div>
                         <div className="w-px h-6 bg-border mx-1" />
                         <button
@@ -128,6 +137,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange
 
                 </div>
             </nav>
+            <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
         </div>
     );
 };
