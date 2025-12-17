@@ -75,7 +75,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange
             </header>
 
             {/* Main Content */}
-            <main className="flex-1 p-4 pb-28 overflow-y-auto w-full max-w-lg mx-auto z-0 scroll-smooth">
+            <main className="flex-1 p-3 md:p-6 pb-28 overflow-y-auto w-full max-w-lg mx-auto z-0 scroll-smooth">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={activeTab}

@@ -172,7 +172,7 @@ export const OnboardingTour: React.FC = () => {
                                 ? 'translateY(-100%)' // Move up by its own height
                                 : 'none'
                     }}
-                    className="w-[300px] bg-card border border-border rounded-xl shadow-2xl p-6 z-[101] text-card-foreground pointer-events-auto"
+                    className="w-[90vw] max-w-[300px] bg-card border border-border rounded-xl shadow-2xl p-6 z-[101] text-card-foreground pointer-events-auto"
                 >
                     <div className="flex justify-between items-start mb-2">
                         <h3 className="text-lg font-bold">{step.title}</h3>

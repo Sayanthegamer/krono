@@ -33,9 +33,9 @@ export const ClassCard: React.FC<ClassCardProps> = ({ entry, status, onClick }) 
                 style={{ backgroundColor: entry.color || 'var(--primary)' }}
             />
 
-            <div className="flex justify-between items-start pl-3">
-                <div>
-                    <h3 className="text-lg font-bold tracking-tight text-foreground mb-1.5">{entry.subject}</h3>
+            <div className="flex justify-between items-start pl-3 gap-2">
+                <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-bold tracking-tight text-foreground mb-1.5 break-words">{entry.subject}</h3>
 
                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1.5">
