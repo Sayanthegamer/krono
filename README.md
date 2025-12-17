@@ -17,13 +17,13 @@
 ## Repository
 
 The official repository is hosted at:
-[https://github.com/Sayanthegamer/krono](https://github.com/Sayanthegamer/krono)
+[https://github.com/Sayanthegamer/kron0](https://github.com/Sayanthegamer/kron0)
 
 ## Getting Started
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/Sayanthegamer/krono.git
+    git clone https://github.com/Sayanthegamer/kron0.git
     ```
 2.  Install dependencies:
     ```bash
