@@ -103,9 +103,10 @@ export const FocusProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
             // Save Session if it was a real focus session
             if (user && (mode === 'focus' || mode === 'custom')) {
+                const durationMinutes = mode === 'custom' ? customMinutes : MODES[mode].minutes;
                 const newSession: Omit<FocusSession, 'id'> & { userId: string } = {
-                    startTime: Date.now(),
-                    duration: mode === 'custom' ? customMinutes : MODES[mode].minutes,
+                    startTime: Date.now() - (durationMinutes * 60 * 1000), // Backdate to actual start
+                    duration: durationMinutes,
                     completed: true,
                     userId: user.uid
                 };

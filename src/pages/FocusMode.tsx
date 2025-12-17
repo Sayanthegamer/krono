@@ -35,6 +35,17 @@ export const FocusMode: React.FC = () => {
     const circumference = 2 * Math.PI * radius;
     const strokeDashoffset = circumference - (progress / 100) * circumference;
 
+    const handleModeSwitch = (newMode: TimerMode) => {
+        // Warn if active OR if paused but not reset (progress made but not finished)
+        const hasProgress = timeLeft < currentTotalTime && timeLeft > 0;
+
+        if (isActive || hasProgress) {
+            const confirmSwitch = window.confirm("Timer is in progress! Switching modes will reset the current timer. Continue?");
+            if (!confirmSwitch) return;
+        }
+        setMode(newMode);
+    };
+
     return (
         <div className="flex flex-col items-center justify-center p-6 space-y-8 h-full min-h-[70vh]">
 
@@ -43,7 +54,7 @@ export const FocusMode: React.FC = () => {
                 {(Object.keys(MODES) as TimerMode[]).map((m) => (
                     <button
                         key={m}
-                        onClick={() => setMode(m)}
+                        onClick={() => handleModeSwitch(m)}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${mode === m
                             ? 'bg-background shadow-sm text-foreground'
                             : 'text-muted-foreground hover:text-foreground'
