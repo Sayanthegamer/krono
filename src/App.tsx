@@ -70,9 +70,12 @@ const AppContent: React.FC = () => {
 
 import { OnboardingTour } from './components/OnboardingTour';
 
+import { LandingPage } from './pages/LandingPage';
+
 // Main App with Auth Check
 const AuthenticatedApp: React.FC = () => {
   const { user, isLoading } = useAuth();
+  const [showLanding, setShowLanding] = useState(true);
 
   if (isLoading) {
     return (
@@ -82,20 +85,25 @@ const AuthenticatedApp: React.FC = () => {
     );
   }
 
-  if (!user) {
-    return <LoginPage />;
+  if (user) {
+    return (
+      <TimetableProvider>
+        <FocusProvider>
+          <TodoProvider>
+            <AppContent />
+            <OnboardingTour />
+          </TodoProvider>
+        </FocusProvider>
+      </TimetableProvider>
+    );
   }
 
-  return (
-    <TimetableProvider>
-      <FocusProvider>
-        <TodoProvider>
-          <AppContent />
-          <OnboardingTour />
-        </TodoProvider>
-      </FocusProvider>
-    </TimetableProvider>
-  );
+  // Not logged in flow
+  if (showLanding) {
+    return <LandingPage onGetStarted={() => setShowLanding(false)} />;
+  }
+
+  return <LoginPage />;
 };
 
 function App() {
