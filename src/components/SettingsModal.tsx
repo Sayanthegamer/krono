@@ -79,7 +79,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-card border border-border rounded-2xl shadow-2xl z-[301] p-6"
+                        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-md bg-card border border-border rounded-2xl shadow-2xl z-[301] p-4 md:p-6"
                     >
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-xl font-bold">Settings</h2>
@@ -89,7 +89,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                         </div>
 
                         {/* Account Info */}
-                        <div className="mb-8 p-4 bg-muted/50 rounded-xl flex items-center gap-4">
+                        <div className="mb-6 md:mb-8 p-3 md:p-4 bg-muted/50 rounded-xl flex items-center gap-3 md:gap-4">
                             <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-primary to-purple-500 flex items-center justify-center text-white font-bold text-lg">
                                 {user?.displayName?.[0] || user?.email?.[0]?.toUpperCase()}
                             </div>
