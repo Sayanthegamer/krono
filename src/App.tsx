@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { TimetableProvider, useTimetable } from './context/TimetableContext';
 import { FocusProvider } from './context/FocusContext';
 import { TodoProvider } from './context/TodoContext';
@@ -6,10 +7,12 @@ import { Layout } from './components/Layout';
 import { Dashboard } from './pages/Dashboard';
 import { WeekView } from './components/WeekView';
 import { EntryModal } from './components/EntryModal';
+import { LoginPage } from './pages/LoginPage';
 import type { TimeTableEntry } from './types';
 import { FocusMode } from './pages/FocusMode';
 import { useNotifications } from './hooks/useNotifications';
 import { StatsWidget } from './components/StatsWidget';
+import { Loader2 } from 'lucide-react';
 
 const AppContent: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'week' | 'focus' | 'stats'>('dashboard');
@@ -51,10 +54,8 @@ const AppContent: React.FC = () => {
       {activeTab === 'stats' && (
         <div className="pt-4 space-y-4">
           <StatsWidget />
-          {/* We can add history or more details here later */}
         </div>
       )}
-
 
       <EntryModal
         isOpen={isModalOpen}
@@ -67,7 +68,22 @@ const AppContent: React.FC = () => {
   );
 };
 
-function App() {
+// Main App with Auth Check
+const AuthenticatedApp: React.FC = () => {
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <LoginPage />;
+  }
+
   return (
     <TimetableProvider>
       <FocusProvider>
@@ -76,6 +92,14 @@ function App() {
         </TodoProvider>
       </FocusProvider>
     </TimetableProvider>
+  );
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <AuthenticatedApp />
+    </AuthProvider>
   );
 }
 

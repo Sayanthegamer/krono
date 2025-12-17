@@ -1,6 +1,7 @@
 import React from 'react';
-import { Calendar, Plus, Timer, LayoutGrid, PieChart } from 'lucide-react';
+import { Calendar, Plus, Timer, LayoutGrid, PieChart, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -10,6 +11,8 @@ interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange, onAddClick }) => {
+    const { user, logout } = useAuth();
+
     return (
         <div className="min-h-screen bg-background text-foreground flex flex-col relative overflow-hidden">
             {/* Ambient Background Glows */}
@@ -40,6 +43,15 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange
                     </div>
                     <h1 className="text-xl font-bold tracking-tight">Timetable</h1>
                 </div>
+                {user && (
+                    <button
+                        onClick={logout}
+                        className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                        title="Sign out"
+                    >
+                        <LogOut size={20} />
+                    </button>
+                )}
             </header>
 
             {/* Main Content */}

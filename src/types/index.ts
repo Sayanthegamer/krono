@@ -5,6 +5,7 @@ export interface TodoItem {
     text: string;
     completed: boolean;
     createdAt: number;
+    userId?: string;
 }
 
 export interface FocusSession {
@@ -12,6 +13,7 @@ export interface FocusSession {
     startTime: number;
     duration: number; // in minutes
     completed: boolean;
+    userId?: string;
 }
 
 export interface TimeTableEntry {
@@ -22,6 +24,7 @@ export interface TimeTableEntry {
     subject: string;
     location?: string;
     color?: string;
+    userId?: string;
 }
 
 export interface AppSettings {

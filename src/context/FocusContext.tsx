@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { FocusSession } from '../types';
+import { db } from '../lib/firebase';
+import { collection, addDoc, query, where, getDocs, orderBy } from 'firebase/firestore';
+import { useAuth } from './AuthContext';
 
 interface FocusContextType {
     isFocusMode: boolean;
@@ -14,19 +17,38 @@ interface FocusContextType {
 const FocusContext = createContext<FocusContextType | undefined>(undefined);
 
 const FOCUS_DURATION = 25 * 60; // 25 minutes in seconds
+const HISTORY_COLLECTION = 'focus_history';
 
 export const FocusProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const { user } = useAuth();
     const [isFocusMode, setIsFocusMode] = useState(false);
     const [timeLeft, setTimeLeft] = useState(FOCUS_DURATION);
     const [isActive, setIsActive] = useState(false);
-    const [sessionHistory, setSessionHistory] = useState<FocusSession[]>(() => {
-        const saved = localStorage.getItem('focus_history');
-        return saved ? JSON.parse(saved) : [];
-    });
+    const [sessionHistory, setSessionHistory] = useState<FocusSession[]>([]);
 
+    // Load history from Firestore
     useEffect(() => {
-        localStorage.setItem('focus_history', JSON.stringify(sessionHistory));
-    }, [sessionHistory]);
+        if (!user) return;
+
+        const loadHistory = async () => {
+            try {
+                const q = query(
+                    collection(db, HISTORY_COLLECTION),
+                    where('userId', '==', user.uid),
+                    orderBy('startTime', 'desc')
+                );
+                const snapshot = await getDocs(q);
+                const data = snapshot.docs.map(doc => ({
+                    ...doc.data(),
+                    id: doc.id
+                })) as FocusSession[];
+                setSessionHistory(data);
+            } catch (error) {
+                console.error('Error loading focus history:', error);
+            }
+        };
+        loadHistory();
+    }, [user]);
 
     useEffect(() => {
         let interval: any;
@@ -38,18 +60,24 @@ export const FocusProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         } else if (timeLeft === 0) {
             setIsActive(false);
             // Record session
-            const newSession: FocusSession = {
-                id: crypto.randomUUID(),
-                startTime: Date.now(),
-                duration: 25,
-                completed: true
-            };
-            setSessionHistory(prev => [newSession, ...prev]);
-            // Optional: Notification sound could go here
+            if (user) {
+                const newSession: Omit<FocusSession, 'id'> & { userId: string } = {
+                    startTime: Date.now(),
+                    duration: 25,
+                    completed: true,
+                    userId: user.uid
+                };
+
+                addDoc(collection(db, HISTORY_COLLECTION), newSession)
+                    .then(docRef => {
+                        setSessionHistory(prev => [{ ...newSession, id: docRef.id }, ...prev]);
+                    })
+                    .catch(e => console.error('Error saving session:', e));
+            }
         }
 
         return () => clearInterval(interval);
-    }, [isActive, timeLeft]);
+    }, [isActive, timeLeft, user]);
 
     const toggleFocusMode = () => setIsFocusMode(prev => !prev);
 
