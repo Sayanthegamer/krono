@@ -27,7 +27,7 @@ const TOUR_STEPS: Step[] = [
         targetId: 'todo-widget',
         title: 'To-Do List',
         description: 'Manage daily tasks right here. Tap + to add, click circle to complete.',
-        position: 'bottom'
+        position: 'top'
     },
     {
         targetId: 'nav-add-btn',
