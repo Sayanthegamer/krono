@@ -24,4 +24,16 @@ export default defineConfig({
       }
     })
   ],
+  build: {
+    chunkSizeWarningLimit: 1000, // Increase limit to 1MB
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'firebase-vendor': ['firebase/app', 'firebase/firestore', 'firebase/auth'],
+          'ui-vendor': ['framer-motion', 'lucide-react', 'date-fns']
+        }
+      }
+    }
+  }
 })
