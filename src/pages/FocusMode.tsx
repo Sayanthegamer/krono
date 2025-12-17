@@ -50,19 +50,27 @@ export const FocusMode: React.FC = () => {
         <div className="flex flex-col items-center justify-center p-6 space-y-8 h-full min-h-[70vh]">
 
             {/* Mode Selectors */}
-            <div className="flex flex-wrap justify-center gap-2 bg-muted p-1 rounded-xl">
-                {(Object.keys(MODES) as TimerMode[]).map((m) => (
-                    <button
-                        key={m}
-                        onClick={() => handleModeSwitch(m)}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${mode === m
-                            ? 'bg-background shadow-sm text-foreground'
-                            : 'text-muted-foreground hover:text-foreground'
-                            }`}
-                    >
-                        {MODES[m].label}
-                    </button>
-                ))}
+            <div className="relative flex p-1 rounded-2xl bg-black/20 backdrop-blur-md border border-white/5 w-full max-w-sm mx-auto">
+                {(Object.keys(MODES) as TimerMode[]).map((m) => {
+                    const isActive = mode === m;
+                    return (
+                        <button
+                            key={m}
+                            onClick={() => handleModeSwitch(m)}
+                            className={`relative flex-1 py-2 text-xs md:text-sm font-medium transition-colors z-10 ${isActive ? 'text-white font-bold' : 'text-muted-foreground hover:text-white/80'
+                                }`}
+                        >
+                            {isActive && (
+                                <motion.div
+                                    layoutId="active-mode-pill"
+                                    className="absolute inset-0 bg-white/10 rounded-xl border border-white/10 shadow-sm"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                />
+                            )}
+                            <span className="relative z-10">{MODES[m].label}</span>
+                        </button>
+                    );
+                })}
             </div>
 
             {/* Custom Input (Only visible in Custom Mode) */}
