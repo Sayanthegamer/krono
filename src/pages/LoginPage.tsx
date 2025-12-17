@@ -51,9 +51,9 @@ export const LoginPage: React.FC = () => {
                 {/* Logo */}
                 <div className="text-center mb-8">
                     <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/30 mb-4">
-                        <span className="text-3xl">📅</span>
+                        <span className="text-3xl">⏳</span>
                     </div>
-                    <h1 className="text-2xl font-bold text-foreground">Timetable Creator</h1>
+                    <h1 className="text-2xl font-bold text-foreground">Krono</h1>
                     <p className="text-muted-foreground text-sm mt-1">
                         {isSignUp ? 'Create your account' : 'Sign in to continue'}
                     </p>

@@ -20,9 +20,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             <nav className="relative z-10 w-full p-6 flex justify-between items-center max-w-7xl mx-auto">
                 <div className="flex items-center gap-2 font-bold text-xl tracking-tight">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-purple-500 flex items-center justify-center shadow-lg shadow-primary/20">
-                        <span className="text-white text-sm">P</span>
+                        <span className="text-white text-sm">K</span>
                     </div>
-                    Porion
+                    Krono
                 </div>
                 <button
                     onClick={onGetStarted}
@@ -43,7 +43,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                         v2.0 Now Available
                     </span>
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-br from-white via-white/90 to-white/50">
-                        Master your time with <span className="text-primary">Porion</span>.
+                        Master your time with <span className="text-primary">Krono</span>.
                     </h1>
                     <p className="text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto mb-10 leading-relaxed">
                         The ultimate student companion. Organize classes, track focus sessions, and manage tasks in a beautifully focused interface.
@@ -96,7 +96,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                     Designed & Built by <span className="text-foreground font-medium">Sayan</span>.
                 </p>
                 <div className="text-[10px] text-muted-foreground/50 mt-2">
-                    © 2025 Porion. All rights reserved.
+                    © 2025 Krono. All rights reserved.
                 </div>
             </footer>
         </div>

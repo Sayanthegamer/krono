@@ -42,9 +42,9 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange
             <header className="px-6 py-4 flex justify-between items-center sticky top-0 z-10">
                 <div className="flex items-center gap-2">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
-                        <Calendar className="text-white w-5 h-5" />
+                        <span className="text-white text-lg">⏳</span>
                     </div>
-                    <h1 className="text-xl font-bold tracking-tight">Timetable</h1>
+                    <h1 className="text-xl font-bold tracking-tight">Krono</h1>
                 </div>
                 {user && (
                     <div className="flex items-center gap-3 bg-muted/50 p-1.5 pr-1.5 rounded-full border border-white/5">
