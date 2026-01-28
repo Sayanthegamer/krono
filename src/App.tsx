@@ -47,7 +47,7 @@ const AppContent: React.FC = () => {
       onTabChange={setActiveTab}
       onAddClick={handleAddClick}
     >
-      {activeTab === 'dashboard' && <Dashboard onEntryClick={handleEditClick} />}
+      {activeTab === 'dashboard' && <Dashboard onEntryClick={handleEditClick} onAddEntry={handleAddClick} />}
       {activeTab === 'week' && <WeekView onEntryClick={handleEditClick} />}
       {activeTab === 'focus' && <FocusMode />}
       {activeTab === 'stats' && (
