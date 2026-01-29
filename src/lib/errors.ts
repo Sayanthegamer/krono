@@ -3,14 +3,16 @@
  */
 
 // Error codes enum for different failure types
-export enum ErrorCode {
-  AUTH_ERROR,
-  FIRESTORE_ERROR,
-  VALIDATION_ERROR,
-  NETWORK_ERROR,
-  PERMISSION_ERROR,
-  UNKNOWN_ERROR
-}
+export const ErrorCode = {
+  AUTH_ERROR: 0,
+  FIRESTORE_ERROR: 1,
+  VALIDATION_ERROR: 2,
+  NETWORK_ERROR: 3,
+  PERMISSION_ERROR: 4,
+  UNKNOWN_ERROR: 5
+} as const;
+
+export type ErrorCode = typeof ErrorCode[keyof typeof ErrorCode];
 
 // User-friendly error message mapping
 export const ERROR_MESSAGES: Record<ErrorCode, string> = {
@@ -127,9 +129,10 @@ export const retryWithBackoff = async <T>(
 // Check if error is retriable
 export const isRetriableError = (error: any): boolean => {
   const errorCode = getErrorCode(error);
-  return [
+  const retriableCodes: ErrorCode[] = [
     ErrorCode.NETWORK_ERROR,
     ErrorCode.FIRESTORE_ERROR, // Some Firestore errors are retriable
     ErrorCode.UNKNOWN_ERROR   // Retry unknown errors
-  ].includes(errorCode);
+  ];
+  return retriableCodes.includes(errorCode);
 };

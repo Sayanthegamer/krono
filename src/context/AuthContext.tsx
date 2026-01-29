@@ -8,7 +8,7 @@ import {
     onAuthStateChanged
 } from 'firebase/auth';
 import type { User } from 'firebase/auth';
-import { getErrorCode, getErrorMessage, logError } from '../lib/errors';
+import { getErrorMessage, logError } from '../lib/errors';
 import { useToast } from './ToastContext';
 
 interface AuthContextType {
