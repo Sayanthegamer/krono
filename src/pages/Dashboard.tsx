@@ -3,10 +3,10 @@ import React from 'react';
 import { useScheduleStatus } from '../hooks/useScheduleStatus';
 import { ClassCard } from '../components/ClassCard';
 import { TodoWidget } from '../components/TodoWidget';
-import type { TimeTableEntry } from '../types';
+import type { TimeTableEntry, DayOfWeek } from '../types';
 import { format, isWithinInterval, parse, getDay } from 'date-fns';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, Sparkles, Plus, ChevronRight } from 'lucide-react';
+import { Clock, Sparkles, Plus } from 'lucide-react';
 
 import { useAuth } from '../context/AuthContext';
 import { useTimetable } from '../context/TimetableContext';
@@ -31,8 +31,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onEntryClick, onAddEntry }
 
     // Get all today's classes sorted by time
     const todayEntries = React.useMemo(() => {
-        const days: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const currentDayName = days[getDay(now)];
+        const days: DayOfWeek[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const currentDayName = days[getDay(now)] as DayOfWeek;
         return entries
             .filter(e => e.days.includes(currentDayName))
             .sort((a, b) => a.startTime.localeCompare(b.startTime));
