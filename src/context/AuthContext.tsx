@@ -50,7 +50,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             showSuccess('Welcome back!', 'Successfully signed in with Google');
         } catch (error) {
             const errorMessage = getErrorMessage(error);
-            const errorCode = getErrorCode(error);
             
             logError(error, 'Google Sign In');
             setLastError(errorMessage);
@@ -70,7 +69,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             showSuccess('Welcome back!', 'Successfully signed in');
         } catch (error) {
             const errorMessage = getErrorMessage(error);
-            const errorCode = getErrorCode(error);
             
             logError(error, 'Email Sign In');
             setLastError(errorMessage);
@@ -90,7 +88,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             showSuccess('Welcome!', 'Account created successfully');
         } catch (error) {
             const errorMessage = getErrorMessage(error);
-            const errorCode = getErrorCode(error);
             
             logError(error, 'Email Sign Up');
             setLastError(errorMessage);

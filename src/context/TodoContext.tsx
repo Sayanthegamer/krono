@@ -4,7 +4,7 @@ import { db } from '../lib/firebase';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where } from 'firebase/firestore';
 import { useAuth } from './AuthContext';
 import { useToast } from './ToastContext';
-import { getErrorCode, getErrorMessage, logError, retryWithBackoff, isRetriableError } from '../lib/errors';
+import { getErrorMessage, logError, retryWithBackoff, isRetriableError } from '../lib/errors';
 
 interface TodoContextType {
     todos: TodoItem[];

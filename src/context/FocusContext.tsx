@@ -4,7 +4,7 @@ import { db } from '../lib/firebase';
 import { collection, addDoc, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { useAuth } from './AuthContext';
 import { useToast } from './ToastContext';
-import { getErrorCode, getErrorMessage, logError, retryWithBackoff, isRetriableError } from '../lib/errors';
+import { getErrorMessage, logError, retryWithBackoff, isRetriableError } from '../lib/errors';
 
 export type TimerMode = 'focus' | 'short' | 'long' | 'custom';
 

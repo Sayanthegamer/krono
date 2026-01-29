@@ -17,7 +17,7 @@ interface EntryModalProps {
 const DAYS: DayOfWeek[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 export const EntryModal: React.FC<EntryModalProps> = ({ isOpen, onClose, onSave, onDelete, initialData, defaultDay }) => {
-    const { isSaving, lastError } = useTimetable();
+    const { isSaving } = useTimetable();
     const [formData, setFormData] = useState<Partial<TimeTableEntry>>({
         days: defaultDay ? [defaultDay] : ['Monday'],
         startTime: '09:00',
