@@ -4,7 +4,7 @@ import type { TimeTableEntry, DayOfWeek } from '../types';
 import { ClassCard } from './ClassCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronLeft, Calendar } from 'lucide-react';
-import { format, isToday, addDays, startOfWeek } from 'date-fns';
+import { format, isToday, addDays } from 'date-fns';
 
 interface WeekViewProps {
     onEntryClick: (entry: TimeTableEntry) => void;

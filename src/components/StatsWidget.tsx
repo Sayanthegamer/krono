@@ -3,7 +3,7 @@ import { useFocus } from '../context/FocusContext';
 import { useTimetable } from '../context/TimetableContext';
 import { motion } from 'framer-motion';
 import { PieChart, Clock, Zap, TrendingUp, Flame, Sunrise, Sunset, Moon } from 'lucide-react';
-import { differenceInMinutes, parse, startOfDay, endOfDay, isWithinInterval, subDays, format, startOfWeek, endOfWeek, isToday } from 'date-fns';
+import { differenceInMinutes, parse, startOfDay, endOfDay, isWithinInterval, subDays, format, startOfWeek, endOfWeek } from 'date-fns';
 
 export const StatsWidget: React.FC = () => {
     const { sessionHistory } = useFocus();

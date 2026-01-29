@@ -12,7 +12,7 @@ interface EmptyStateProps {
   };
 }
 
-const illustrations = {
+const illustrations: Record<string, { icon: React.ComponentType<{ className?: string }>; title: string; description: string; actionLabel?: string }> = {
   timetable: {
     icon: Calendar,
     title: 'No classes scheduled',

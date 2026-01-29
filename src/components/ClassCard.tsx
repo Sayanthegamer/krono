@@ -1,6 +1,6 @@
 import React from 'react';
 import type { TimeTableEntry } from '../types';
-import { MapPin, Clock, Pencil, CheckCircle } from 'lucide-react';
+import { MapPin, Clock, Pencil } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { twMerge } from 'tailwind-merge';
 
